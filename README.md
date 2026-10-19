@@ -1,50 +1,69 @@
 # server
 
-> 
-> Express + ESM Node.js backend template
+> **Express + ESM Node.js backend template**
+> **Express + ESM Node.js 后端模板**
 
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-green)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/express-5.3.0-blue)](https://expressjs.com/)
 [![License](https://img.shields.io/badge/license-ISC-orange)](LICENSE)
 
 A lightweight Node.js backend template built with Express, using ES Module syntax.
 Pre-configured with environment variables and CORS support, ready for REST API development.
 
-## ✨ Features
+一个基于 Express、采用 ES Module 语法的轻量 Node.js 后端模板。
+已预置环境变量与 CORS 支持，开箱即可进行 REST API 开发。
 
-- ✅ ES Module (`"type": "module"`)
-- ✅ Express v5
-- ✅ `dotenv` environment variable management
-- ✅ `cors` cross-origin resource sharing
-- ✅ `nodemon` auto-reload for development
-- ✅ ESLint code linting
-- ✅ Clean project structure, easy to extend
+---
 
-## 📁 Project Structure
+## ✨ Features / 特性
+
+- ✅ ES Module (`"type": "module"`) — ES Module 语法
+- ✅ Express v5 — Express v5
+- ✅ `dotenv` environment variable management — `dotenv` 环境变量管理
+- ✅ `cors` cross-origin resource sharing — `cors` 跨域资源共享
+- ✅ **Native hot reload via `node --watch`** — **基于 `node --watch` 的原生热更新（无需 nodemon）**
+- ✅ ESLint code linting — ESLint 代码校验
+- ✅ Clean project structure, easy to extend — 清晰的项目结构，易于扩展
+
+> **Note / 说明**：本模板**不使用 nodemon**。开发期热重载直接由 Node.js 原生的
+> `--watch` 标志提供（需 **Node.js 20.13+ / 22+**，`--watch` 自 20.13 起转为稳定特性）。
+> This template **does not use nodemon**. Development hot-reload is provided natively by
+> Node.js `--watch` flag (requires **Node.js 20.13+ / 22+**).
+
+---
+
+## 📁 Project Structure / 项目结构
 
 ```
 server/
 ├── src/
-│   ├── server.js         # Application entry
-│   ├── routes/           # API routes
-│   ├── controllers/      # Route handlers
-│   ├── middleware/       # Custom middleware
-│   ├── utils/            # Helper functions
-│   └── config/           # Configurations
-├── .env                  # Environment variables (git ignored)
-├── .gitignore
-├── .eslintrc.json
-├── package.json
-└── README.md
+│   ├── config/          # Configurations / 配置
+│   ├── controllers/     # Route handlers / 控制器（处理请求）
+│   ├── middlewares/     # Custom middleware / 自定义中间件
+│   ├── models/          # Data models / 数据模型
+│   ├── routes/          # API routes / API 路由
+│   ├── services/        # Business logic / 业务逻辑
+│   ├── utils/           # Helper functions / 工具函数
+│   ├── validators/      # Request validation / 参数校验
+│   ├── app.js           # Express app assembly / 应用装配
+│   ├── server.js        # Application entry / 应用入口
+│   ├── .env.example     # Env template / 环境变量模板（可提交）
+│   ├── .env             # Local env / 本地环境变量（git 忽略）
+│   ├── .gitignore
+│   ├── package-lock.json
+│   ├── package.json
+│   └── README.md
 ```
 
-## 🚀 Quick Start
+---
 
-### Prerequisites
+## 🚀 Quick Start / 快速开始
 
-- Node.js >= 18
+### Prerequisites / 前置条件
 
-### 1. Clone & Install dependencies
+- Node.js >= 20.13 (for native `--watch`) / 用于原生 `--watch` 热更新
+
+### 1. Clone & Install dependencies / 克隆并安装依赖
 
 ```
 git clone <your-repo-url>
@@ -52,56 +71,68 @@ cd server
 npm install
 ```
 
-### 2. Environment setup
+### 2. Environment setup / 环境变量配置
 
-Create `.env` file in root directory:
+Copy `.env.example` to `.env` in the `src/` directory / 在 `src/` 目录下复制 `.env.example` 为 `.env`：
+
+```
+cp src/.env.example src/.env
+```
+
+`.env` content / 内容如下：
 
 ```
 PORT=3000
 NODE_ENV=development
 ```
 
-### 3. Run dev server (hot reload)
+### 3. Run dev server (native hot reload) / 启动开发服务（原生热更新）
 
 ```
 npm run dev
 ```
 
-Server runs on `[http://localhost:3000](http://localhost:3000)`
+> Equivalent command / 等价命令：`node --watch src/server.js`
 
-### 4. Start in production
+Server runs on `[http://localhost:3000](http://localhost:3000)` / 服务运行于该地址
+
+### 4. Start in production / 启动生产服务
 
 ```
 npm run start
 ```
 
-### 5. Lint code
+### 5. Lint code / 代码校验
 
 ```
 npm run lint
 ```
 
-### 6. Clean node_modules
+### 6. Clean node_modules / 清理依赖
 
 ```
 npm run clean
 ```
 
-## 📜 Scripts
+---
 
-| Command         | Description                       |
-| --------------- | --------------------------------- |
-| `npm run dev`   | Start dev server with nodemon     |
-| `npm run start` | Start production server with node |
-| `npm run lint`  | ESLint check for `src/`           |
-| `npm run clean` | Remove node_modules               |
-| `npm test`      | Reserved for tests                |
+## 📜 Scripts / 脚本命令
 
-## 🧪 API Example
+| Command 命令        | Description 说明                                          |
+| ------------------- | --------------------------------------------------------- |
+| `npm run dev`       | Start dev server with native `node --watch` / 原生热更新启动开发服务 |
+| `npm run start`     | Start production server with node / node 启动生产服务     |
+| `npm run lint`      | ESLint check for `src/` / 校验 `src/` 目录                |
+| `npm run clean`     | Remove node_modules / 删除 node_modules                   |
+| `npm test`          | Reserved for tests / 预留测试                             |
+
+---
+
+## 🧪 API Example / 接口示例
 
 `src/routes/demo.js`
 
-```
+```javascript
 import { Router } from 'express';
 const router = Router();
 
@@ -124,9 +155,9 @@ router.post('/post', (req, res) => {
 export default router;
 ```
 
-Register route in `src/server.js`:
+Register route in `src/app.js` / 在 `src/app.js` 中注册路由：
 
-```
+```javascript
 import demoRouter from './routes/demo.js';
 app.use('/api', demoRouter);
 ```
@@ -134,11 +165,13 @@ app.use('/api', demoRouter);
 - GET `[http://localhost:3000/api/hello](http://localhost:3000/api/hello)`
 - POST `[http://localhost:3000/api/post](http://localhost:3000/api/post)`
 
-## 🛡️ Middleware Examples
+---
 
-### 404 Handler
+## 🛡️ Middleware Examples / 中间件示例
 
-```
+### 404 Handler / 404 处理
+
+```javascript
 app.use((req, res) => {
   res.status(404).json({
     code: 404,
@@ -147,9 +180,9 @@ app.use((req, res) => {
 });
 ```
 
-### Global Error Handler
+### Global Error Handler / 全局错误处理
 
-```
+```javascript
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(err.statusCode || 500).json({
@@ -159,47 +192,58 @@ app.use((err, req, res, next) => {
 });
 ```
 
-## ⚠️ Important Notes
+---
+
+## ⚠️ Important Notes / 重要说明
 
 1. This project uses **ESM**, file extensions `.js` cannot be omitted in `import`.
-2. `.env` file **must not be committed to git**, add to `.gitignore`.
+   本项目使用 **ESM**，`import` 中 `.js` 扩展名不可省略。
+2. `.env` file **must not be committed to git**, add to `.gitignore`. Commit `.env.example` instead.
+   `.env` 文件**切勿提交到 git**，应加入 `.gitignore`；改为提交 `.env.example` 模板。
 3. `__dirname` is not available in ESM. Use this snippet:
+   ESM 中没有 `__dirname`，可使用以下写法：
 
-```
+```javascript
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 ```
 
-## 📦 Optional Extensions
+---
 
-Install as needed:
+## 📦 Optional Extensions / 可选扩展
 
-- `prisma` / `mongoose`: Database ORM/ODM
-- `zod`: Request schema validation
-- `jsonwebtoken`: JWT authentication
-- `multer`: File upload
-- `helmet`: Security headers
-- `winston`: Logging
-- `pm2`: Process manager for production
+Install as needed / 按需安装：
 
-## 🚢 Production Deployment Recommendation
+- `prisma` / `mongoose`: Database ORM/ODM — 数据库 ORM/ODM
+- `zod`: Request schema validation — 请求参数校验
+- `jsonwebtoken`: JWT authentication — JWT 鉴权
+- `multer`: File upload — 文件上传
+- `helmet`: Security headers — 安全请求头
+- `winston`: Logging — 日志
+- `pm2`: Process manager for production — 生产环境进程管理
+
+---
+
+## 🚢 Production Deployment Recommendation / 生产部署建议
 
 ```
-# Install pm2 globally
+# Install pm2 globally / 全局安装 pm2
 npm install -g pm2
 
-# Start service
+# Start service / 启动服务
 pm2 start src/server.js --name="express-server"
 
-# View logs
+# View logs / 查看日志
 pm2 logs express-server
 ```
 
 Suggest to use Nginx as reverse proxy and enable HTTPS.
+建议使用 Nginx 作为反向代理并启用 HTTPS。
 
-## 📄 License
+---
+
+## 📄 License / 许可证
 
 [ISC](LICENSE)
-

@@ -5,7 +5,7 @@
   "description": "后端模板",
   "main": "src/server.js",
   "scripts": {
-    "dev": "nodemon src/server.js",
+    "dev": "node --watch --watch-path=.env --watch-preserve-output src/server.js",
     "start": "node src/server.js",
     "lint": "eslint src/",
     "clean": "npx rimraf node_modules",
