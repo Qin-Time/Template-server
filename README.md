@@ -66,6 +66,7 @@ server/
 
 - Node.js >= 20.13 (for native `--watch`) / 用于原生 `--watch` 热更新
 > 💡 **Tip**: By default, the template does not enable the database and authentication modules. If you want to enable them, please remove the relevant comments in `src/config/index.js` and configure the connection string in `.env`.
+> 
 > 💡 **提示**：模板默认未启用数据库与鉴权模块。如需启用，请在 `src/config/index.js` 取消相关注释，并在 `.env` 中配置对应的连接字符串。
 
 ### 1. Clone & Install dependencies / 克隆并安装依赖
