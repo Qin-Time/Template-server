@@ -19,9 +19,9 @@ Pre-configured with environment variables and CORS support, ready for REST API d
 
 - ✅ ES Module (`"type": "module"`) — ES Module 语法
 - ✅ Express v5 — Express v5
-- ✅ `dotenv` environment variable management — `dotenv` 环境变量管理
+- ✅ Native hot reload via `node --watch` — 基于 `node --watch` 的原生热更新（无需 nodemon）
+- ✅ Native env file loading (`--env-file=.env`) — 基于 Node.js 原生的环境变量注入（无需 dotenv）
 - ✅ `cors` cross-origin resource sharing — `cors` 跨域资源共享
-- ✅ **Native hot reload via `node --watch`** — **基于 `node --watch` 的原生热更新（无需 nodemon）**
 - ✅ ESLint code linting — ESLint 代码校验
 - ✅ Clean project structure, easy to extend — 清晰的项目结构，易于扩展
 
