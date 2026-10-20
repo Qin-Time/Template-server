@@ -68,7 +68,7 @@ server/
 ### 1. Clone & Install dependencies / 克隆并安装依赖
 
 ```
-git clone <your-repo-url>
+git clone <https://github.com/Qin-Time/my-server-template.git>
 cd server
 npm install
 ```
