@@ -37,22 +37,24 @@ Pre-configured with environment variables and CORS support, ready for REST API d
 ```
 server/
 ├── src/
-│   ├── config/          # Configurations / 配置
-│   ├── controllers/     # Route handlers / 控制器（处理请求）
-│   ├── middlewares/     # Custom middleware / 自定义中间件
-│   ├── models/          # Data models / 数据模型
-│   ├── routes/          # API routes / API 路由
-│   ├── services/        # Business logic / 业务逻辑
-│   ├── utils/           # Helper functions / 工具函数
-│   ├── validators/      # Request validation / 参数校验
-│   ├── app.js           # Express app assembly / 应用装配
-│   ├── server.js        # Application entry / 应用入口
-│   ├── .env.example     # Env template / 环境变量模板（可提交）
-│   ├── .env             # Local env / 本地环境变量（git 忽略）
-│   ├── .gitignore
-│   ├── package-lock.json
-│   ├── package.json
-│   └── README.md
+│   ├── config/          # Configurations / 配置 (数据库连接、第三方服务配置等)
+│   ├── controllers/     # Route handlers / 控制器 (接收请求，调用 Service，返回响应)
+│   ├── middlewares/     # Custom middleware / 自定义中间件 (鉴权、错误处理、日志等)
+│   ├── models/          # Data models / 数据模型 (Mongoose/Sequelize 模型定义)
+│   ├── routes/          # API routes / API 路由 (定义 URL 路径与 Controller 的映射)
+│   ├── services/        # Business logic / 业务逻辑 (核心处理逻辑，与 HTTP 解耦)
+│   ├── utils/           # Helper functions / 工具函数 (通用辅助方法)
+│   ├── validators/      # Request validation / 参数校验 (Joi/Zod 校验规则)
+│   ├── app.js           # Express app assembly / 应用装配 (初始化 Express，注册中间件和路由)
+│   └── server.js        # Application entry / 应用入口 (启动 HTTP Server，监听端口)
+├── tests/               # Unit & Integration tests / 测试文件
+├── .env                 # Local env / 本地环境变量 (⚠️ Git Ignore，敏感信息)
+├── .env.example         # Env template / 环境变量模板 (✅ 可提交，供他人参考配置项)
+├── .eslintrc.cjs        # ESLint configuration / 代码规范配置
+├── .gitignore           # Git ignore rules / Git 忽略规则
+├── package.json         # Project manifest & scripts / 项目依赖与脚本
+├── package-lock.json    # Dependency lock file / 依赖锁定文件
+└── README.md            # Project documentation / 项目说明文档
 ```
 
 ---
