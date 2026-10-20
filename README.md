@@ -78,7 +78,7 @@ npm install
 Copy `.env.example` to `.env` in the `src/` directory / 在 `src/` 目录下复制 `.env.example` 为 `.env`：
 
 ```
-cp src/.env.example src/.env
+cp server/.env.example server/.env
 ```
 
 `.env` content / 内容如下：
