@@ -51,8 +51,7 @@ server/
 ├── tests/               # Unit & Integration tests / 测试文件
 ├── .env                 # Local env / 本地环境变量 (⚠️ Git Ignore，敏感信息)
 ├── .env.example         # Env template / 环境变量模板 (✅ 可提交，供他人参考配置项)
-├── .eslintrc.cjs        # ESLint configuration / 代码规范配置
-├── .gitignore           # Git ignore rules / Git 忽略规则
+├── eslint.config.js     # ESLint configuration / 代码规范配置
 ├── package.json         # Project manifest & scripts / 项目依赖与脚本
 ├── package-lock.json    # Dependency lock file / 依赖锁定文件
 └── README.md            # Project documentation / 项目说明文档
@@ -72,7 +71,7 @@ server/
 ### 1. Clone & Install dependencies / 克隆并安装依赖
 
 ```
-git clone <https://github.com/Qin-Time/my-server-template.git>
+git clone https://github.com/Qin-Time/my-server-template.git
 cd server
 npm install
 ```
@@ -116,12 +115,6 @@ npm run start
 npm run lint
 ```
 
-### 6. Clean node_modules / 清理依赖
-
-```
-npm run clean
-```
-
 ---
 
 ## 📜 Scripts / 脚本命令
@@ -131,7 +124,7 @@ npm run clean
 | `npm run dev`       | Start dev server with native node --watch and env-file / 原生热更新启动开发服务 |
 | `npm run start`     | Start production server with node / node 启动生产服务     |
 | `npm run lint`      | ESLint check for `src/` / 校验 `src/` 目录                |
-| `npm run clean`     | Remove node_modules / 删除 node_modules                   |
+| `npm run clean`     | Remove node_modules (useful for troubleshooting) / 删除依赖（用于排查依赖冲突等疑难杂症）                   |
 | `npm test`          | Reserved for tests / 预留测试                             |
 
 ---
@@ -200,6 +193,7 @@ app.use((err, req, res, next) => {
 });
 ```
 > 💡 Tip: Express 5 natively catches rejected promises from async route handlers, so you don't need try-catch blocks everywhere.
+> 
 > 💡 提示：Express v5 原生支持捕获异步路由（async）中抛出的错误，无需再手动包裹 try-catch。
 
 ---
