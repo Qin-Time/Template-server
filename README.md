@@ -3,7 +3,7 @@
 > **Express + ESM Node.js backend template**
 > **Express + ESM Node.js 后端模板**
 
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20-green)](https://nodejs.org/)
+[![Node.js Version](https://img.shields.io/badge/node-%3E%3D20.13-green)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/express-5.3.0-blue)](https://expressjs.com/)
 [![License](https://img.shields.io/badge/license-ISC-orange)](LICENSE)
 
@@ -36,11 +36,12 @@ Pre-configured with environment variables and CORS support, ready for REST API d
 
 ```
 server/
+├── prisma/              # Prisma ORM(Optional) / 数据库模型与迁移文件 (可选)
 ├── src/
 │   ├── config/          # Configurations / 配置 (数据库连接、第三方服务配置等)
 │   ├── controllers/     # Route handlers / 控制器 (接收请求，调用 Service，返回响应)
 │   ├── middlewares/     # Custom middleware / 自定义中间件 (鉴权、错误处理、日志等)
-│   ├── models/          # Data models / 数据模型 (Mongoose/Sequelize 模型定义)
+│   ├── models/          # Domain models & DTOs / 领域模型与数据传输对象 (注: Prisma 模型位于 prisma/schema.prisma)
 │   ├── routes/          # API routes / API 路由 (定义 URL 路径与 Controller 的映射)
 │   ├── services/        # Business logic / 业务逻辑 (核心处理逻辑，与 HTTP 解耦)
 │   ├── utils/           # Helper functions / 工具函数 (通用辅助方法)
@@ -75,10 +76,10 @@ npm install
 
 ### 2. Environment setup / 环境变量配置
 
-Copy `.env.example` to `.env` in the `src/` directory / 在 `src/` 目录下复制 `.env.example` 为 `.env`：
+Copy `.env.example` to `.env` in the `server/` root directory / 在 `server/` 根目录下复制 `.env.example` 为 `.env`：
 
 ```
-cp server/.env.example server/.env
+cp .env.example .env
 ```
 
 `.env` content / 内容如下：
@@ -94,7 +95,7 @@ NODE_ENV=development
 npm run dev
 ```
 
-> Equivalent command / 等价命令：`node --watch src/server.js`
+> Equivalent command / 等价命令：`node --env-file=.env --watch src/server.js`
 
 Server runs on `[http://localhost:3000](http://localhost:3000)` / 服务运行于该地址
 
@@ -103,6 +104,8 @@ Server runs on `[http://localhost:3000](http://localhost:3000)` / 服务运行�
 ```
 npm run start
 ```
+
+> Equivalent command / 等价命令：`node --env-file=.env src/server.js`
 
 ### 5. Lint code / 代码校验
 
@@ -122,7 +125,7 @@ npm run clean
 
 | Command 命令        | Description 说明                                          |
 | ------------------- | --------------------------------------------------------- |
-| `npm run dev`       | Start dev server with native `node --watch` / 原生热更新启动开发服务 |
+| `npm run dev`       | Start dev server with native node --watch and env-file / 原生热更新启动开发服务 |
 | `npm run start`     | Start production server with node / node 启动生产服务     |
 | `npm run lint`      | ESLint check for `src/` / 校验 `src/` 目录                |
 | `npm run clean`     | Remove node_modules / 删除 node_modules                   |
@@ -193,6 +196,8 @@ app.use((err, req, res, next) => {
   });
 });
 ```
+> 💡 Tip: Express 5 natively catches rejected promises from async route handlers, so you don't need try-catch blocks everywhere.
+> 💡 提示：Express v5 原生支持捕获异步路由（async）中抛出的错误，无需再手动包裹 try-catch。
 
 ---
 
@@ -206,8 +211,8 @@ app.use((err, req, res, next) => {
    ESM 中没有 `__dirname`，可使用以下写法：
 
 ```javascript
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 ```
@@ -234,8 +239,8 @@ Install as needed / 按需安装：
 # Install pm2 globally / 全局安装 pm2
 npm install -g pm2
 
-# Start service / 启动服务
-pm2 start src/server.js --name="express-server"
+# Start service / 启动服务（显式注入环境变量）
+pm2 start src/server.js --name="express-server" --node-args="--env-file=.env"
 
 # View logs / 查看日志
 pm2 logs express-server
