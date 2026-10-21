@@ -10,7 +10,7 @@
   "exports": "./src/server.js",
   "type": "module",
   "scripts": {
-    "dev": "node --env-file=.env --watch-path=src --watch-path=.env --watch-preserve-output src/server.js",
+    "dev": "node --env-file=.env --watch-preserve-output --watch src/server.js",
     "start": "node --env-file=.env src/server.js",
     "lint": "eslint src/",
     "clean": "npx rimraf node_modules",
