@@ -14,20 +14,15 @@ app.use(cors({
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// ===== 2. 健康检查（放最前，不受鉴权影响） =====
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', time: new Date().toISOString() });
-});
-
-// ===== 3. 业务路由 =====
+// ===== 2. 挂载路由 =====
 app.use('/api', routes);
 
-// ===== 4. 404 兜底 =====
+// ===== 3. 404 兜底 =====
 app.use((req, res) => {
   res.status(404).json({ code: 404, message: 'Route not found' });
 });
 
-// ===== 5. 全局错误处理（必须最后） =====
+// ===== 4. 全局错误处理 =====
 app.use(errorHandler);
 
 export default app;
